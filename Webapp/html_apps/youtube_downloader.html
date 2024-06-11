@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Downloader</title>
+</head>
+<body>
+    <h1>YouTube Downloader</h1>
+    <form id="downloadForm">
+        <label for="videoUrl">Video URL:</label>
+        <input type="text" id="videoUrl" name="videoUrl" required><br><br>
+        <button type="button" onclick="downloadVideo()">Download Video</button>
+        <p id="downloadMessage"></p>
+    </form>
+
+    <script>
+        function downloadVideo() {
+            const videoUrl = document.getElementById('videoUrl').value;
+            const downloadMessage = document.getElementById('downloadMessage');
+
+            downloadMessage.textContent = 'Downloading video...';
+
+            fetch('http://127.0.0.1:5000/download_video_directly', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ video_url: videoUrl })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'YouTubeVideo.mp4';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                downloadMessage.textContent = 'Video downloaded successfully!';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                downloadMessage.textContent = 'An error occurred while downloading the video.';
+            });
+        }
+    </script>
+</body>
+</html>
