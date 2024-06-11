@@ -87,8 +87,8 @@ def get_color_name(rgb_tuple):
 def generate_qr_code(data, image_path):
     back_color = (255, 255, 255)
     fill_color = (0, 0, 0)
-    module_drawer = 4
-    qr = create_qr_code(data, back_color, fill_color, module_drawer)
+    module_drawer_index = 4
+    qr = create_qr_code(data, back_color, fill_color, module_drawer_index)
     if image_path:
         square_color = get_color_name(fill_color)
         qr = create_square(qr, square_color)

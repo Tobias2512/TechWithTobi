@@ -32,8 +32,8 @@ def generate_qr_directly():
     data = request.json.get('data')
     image_path = request.json.get('image_path')
 
-    if not data or not image_path:
-        return jsonify({'error': "Both 'data' and 'image_path' are required."}), 400
+    if not data:
+        return jsonify({'error': 'No data provided'}), 400
 
     try:
         qr = generate_qr_code(data, image_path)
@@ -42,7 +42,6 @@ def generate_qr_directly():
         buffer = BytesIO()
         qr.save(buffer, format='PNG')
         buffer.seek(0)
-
         return send_file(buffer, mimetype='image/png', as_attachment=True, download_name='newQR.png')
     except Exception as e:
         return jsonify({'error': str(e)}), 500
