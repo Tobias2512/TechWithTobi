@@ -1,6 +1,6 @@
 import os
 import tempfile
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, render_template
 from flask_cors import CORS
 from pytube import YouTube
 from io import BytesIO
@@ -13,8 +13,18 @@ CORS(app)
 
 
 @app.route('/')
-def home():
-    return "Welcome :)"
+def index():
+    return render_template('index.html')
+
+
+@app.route('/qr_encoder')
+def qr_encoder():
+    return render_template('qr_encoder.html')
+
+
+@app.route('/youtube_downloader')
+def youtube_downloader():
+    return render_template('youtube_downloader.html')
 
 
 @app.route('/generate_qr_directly', methods=['POST'])
