@@ -2,10 +2,9 @@ import qrcode
 from qrcode.image.styledpil import StyledPilImage
 from qrcode.image.styles.moduledrawers.pil import SquareModuleDrawer, GappedSquareModuleDrawer, CircleModuleDrawer, RoundedModuleDrawer, VerticalBarsDrawer, HorizontalBarsDrawer
 from PIL import Image, ImageDraw
-import webcolors
 
 
-def create_qr_code(data, back_color, fill_color, module_drawer_index):
+def create_qr_code(data, module_drawer_index):
     # Get the right module_drawer the user asked for
     match module_drawer_index:
         case 1:
@@ -32,7 +31,7 @@ def create_qr_code(data, back_color, fill_color, module_drawer_index):
     qr.make()
     # Create an image of the qr with rounded corners
     # We have to convert to RGB when embedding a color image in a black and white qr code
-    img = qr.make_image(back_color=back_color, fill_color=fill_color, image_factory=StyledPilImage, module_drawer=module_drawer).convert("RGB")
+    img = qr.make_image(image_factory=StyledPilImage, module_drawer=module_drawer).convert("RGB")
     return img
 
 
@@ -48,7 +47,7 @@ def create_embedded_image(image_path, qr):
     return qr
 
 
-def create_square(qr, square_color):
+def create_square(qr):
     # Make the square just a little bigger then the image
     size = 90
     square_size = (size, size)
@@ -57,40 +56,15 @@ def create_square(qr, square_color):
     draw = ImageDraw.Draw(qr)
     draw.rectangle(
         [pos, (pos[0] + square_size[0], pos[1] + square_size[1])],
-        fill=square_color
+        fill="white"
     )
     return qr
 
 
-def closest_color(requested_color):
-    min_colors = {}
-    for key, name in webcolors.CSS3_HEX_TO_NAMES.items():
-        r_c, g_c, b_c = webcolors.hex_to_rgb(key)
-        rd = (r_c - requested_color[0]) ** 2
-        gd = (g_c - requested_color[1]) ** 2
-        bd = (b_c - requested_color[2]) ** 2
-        min_colors[(rd + gd + bd)] = name
-    return min_colors[min(min_colors.keys())]
-
-
-def get_color_name(rgb_tuple):
-    try:
-        # Convert RGB to hex
-        hex_value = webcolors.rgb_to_hex(rgb_tuple)
-        # Get the color name directly
-        return webcolors.hex_to_name(hex_value)
-    except ValueError:
-        # If exact match not found, find the closest color
-        return closest_color(rgb_tuple)
-
-
 def generate_qr_code(data, image_path):
-    back_color = (255, 255, 255)
-    fill_color = (0, 0, 0)
     module_drawer_index = 4
-    qr = create_qr_code(data, back_color, fill_color, module_drawer_index)
+    qr = create_qr_code(data, module_drawer_index)
     if image_path:
-        square_color = get_color_name(fill_color)
-        qr = create_square(qr, square_color)
+        qr = create_square(qr)
         qr = create_embedded_image(image_path, qr)
     return qr
