@@ -46,8 +46,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 39%;
-    margin-bottom: 20px;
+    margin: 0 auto;
+    margin-bottom: 10px;
     max-width: 150px;
     max-height: 150px;
     width: 100%;
@@ -59,4 +59,5 @@ body {
     max-height: 100%;
     width: auto;
     height: auto;
+    border: 5px solid darkblue;
 }
