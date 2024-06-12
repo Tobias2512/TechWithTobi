@@ -9,7 +9,7 @@ from python_apps.qr_encoder import generate_qr_code
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app)  # ,resources={r"/*": {"origins": "http://127.0.0.1:5000"}})
 
 
 @app.route('/')
