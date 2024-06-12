@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
 function showQR() {
     const data = document.getElementById('data').value;
     const imagePath = document.getElementById('imagePath').value;
-    const moduleDrawerIndex = document.getElementById('moduleDrawer').value;
+    const moduleDrawer = document.getElementById('moduleDrawer').value;
+    const moduleDrawerIndex = parseInt(moduleDrawer)
     const qrContainer = document.getElementById('qrContainer');
     const qrMessage = document.getElementById('qrMessage');
 
@@ -48,7 +49,7 @@ function showQR() {
         qrContainer.innerHTML = '';
         qrContainer.appendChild(qrImage);
 
-        qrMessage.textContent = 'QR Code showed! If you like this one you can download this QR';
+        qrMessage.textContent = 'QR Code showed! If you like this one you can download this QR above';
     })
     .catch(error => {
         console.error('Error:', error);

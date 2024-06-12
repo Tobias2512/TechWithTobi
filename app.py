@@ -13,7 +13,7 @@ CORS(app)
 
 
 @app.route('/')
-def index():
+def home():
     return render_template('index.html')
 
 
@@ -31,7 +31,7 @@ def youtube_downloader():
 def generate_qr_directly():
     data = request.json.get('data')
     image_path = request.json.get('image_path')
-    module_drawer_index = request.json.get('module_drawer')
+    module_drawer_index: int = request.json.get('module_drawer')
 
     if not data:
         return jsonify({'error': 'No data provided'}), 400

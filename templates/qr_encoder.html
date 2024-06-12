@@ -1,36 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>QR Code Generator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - Tech With Tobi</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <h1>QR Code Generator</h1>
-    <form id="qrForm">
-        <label for="data">Data:</label>
-        <input type="text" id="data" name="data" required><br><br>
-        <label for="imagePath">Image Path:</label>
-        <input type="text" id="imagePath" name="imagePath"><br><br>
+    <div class="header">
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('qr_encoder') }}">QR Encoder</a>
+            <a href="{{ url_for('youtube_downloader') }}">YouTube Downloader</a>
+        </nav>
+    </div>
+    <div class="container">
+        <h1>QR Code Generator</h1>
+        <form id="qrForm">
+            <label for="data">Data:</label>
+            <input type="text" id="data" name="data" required><br><br>
+            <label for="imagePath">Image Path:</label>
+            <input type="text" id="imagePath" name="imagePath"><br><br>
 
-        <div class="moduleDrawerSelection">
-            <label for="moduleDrawer">Select which type of QR Code you want to create:</label><br>
-            <input type="hidden" id="moduleDrawer" name="moduleDrawer" value="1">
-            <div id="moduleDrawerOptions">
-                <img src="{{ url_for('static', filename='img/square.png') }}" alt="Square" class="moduleDrawerOption" data-value="1">
-                <img src="{{ url_for('static', filename='img/gapped_square.png') }}" alt="Gapped Square" class="moduleDrawerOption" data-value="2">
-                <img src="{{ url_for('static', filename='img/circle.png') }}" alt="Circle" class="moduleDrawerOption" data-value="3">
-                <img src="{{ url_for('static', filename='img/rounded.png') }}" alt="Rounded" class="moduleDrawerOption" data-value="4">
-                <img src="{{ url_for('static', filename='img/vertical.png') }}" alt="Vertical Bars" class="moduleDrawerOption" data-value="5">
-                <img src="{{ url_for('static', filename='img/horizontal.png') }}" alt="Horizontal Bars" class="moduleDrawerOption" data-value="6">
+            <div class="moduleDrawerSelection">
+                <label for="moduleDrawer">Select which type of QR Code you want to create:</label><br>
+                <input type="hidden" id="moduleDrawer" name="moduleDrawer" value="1">
+                <div id="moduleDrawerOptions">
+                    <img src="{{ url_for('static', filename='img/square.png') }}" alt="Square" class="moduleDrawerOption" data-value="1">
+                    <img src="{{ url_for('static', filename='img/gapped_square.png') }}" alt="Gapped Square" class="moduleDrawerOption" data-value="2">
+                    <img src="{{ url_for('static', filename='img/circle.png') }}" alt="Circle" class="moduleDrawerOption" data-value="3">
+                    <img src="{{ url_for('static', filename='img/rounded.png') }}" alt="Rounded" class="moduleDrawerOption" data-value="4">
+                    <img src="{{ url_for('static', filename='img/vertical.png') }}" alt="Vertical Bars" class="moduleDrawerOption" data-value="5">
+                    <img src="{{ url_for('static', filename='img/horizontal.png') }}" alt="Horizontal Bars" class="moduleDrawerOption" data-value="6">
+                </div>
             </div>
-        </div>
 
-        <div id="qrContainer" class="qrcode-preview"></div>
-        <button type="button" onclick="showQR()">Show QR Code</button>
-        <button type="button" onclick="downloadQR()">Download QR Code</button>
-        <p id="qrMessage"></p>
-    </form>
-
+            <div id="qrContainer" class="qrcode-preview"></div>
+            <button type="button" onclick="showQR()">Show QR Code</button>
+            <button type="button" onclick="downloadQR()">Download QR Code</button>
+            <p id="qrMessage"></p>
+        </form>
+    </div>
     <script src="{{ url_for('static', filename='js/generateQR.js') }}"></script>
 </body>
 </html>

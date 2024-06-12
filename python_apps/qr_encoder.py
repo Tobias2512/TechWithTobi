@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw
 
 def create_qr_code(data, module_drawer_index):
     # Get the right module_drawer the user asked for
-    match module_drawer_index:
+    match int(module_drawer_index):
         case 1:
             module_drawer = SquareModuleDrawer()
         case 2:
