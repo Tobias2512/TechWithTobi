@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <iframe class="box" src="{{ url_for('qr_encoder') }}"></iframe>
-    <iframe class="box" src="{{ url_for('youtube_downloader') }}"></iframe>
-</body>
+    <header>
+        <h1>Welcome to my site, here you can press all the buttons with links to all the pages</h1>
+    </header>
+    <div class="container">
+        <iframe id="qr_encoder" class="box" src="{{ url_for('qr_encoder') }}"></iframe>
+        <iframe id="youtube_downloader" class="box" src="{{ url_for('youtube_downloader') }}"></iframe>
+    </div>
+    </body>
 </html>

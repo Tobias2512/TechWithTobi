@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>QR Code Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <h1>QR Code Generator</h1>
@@ -10,50 +11,26 @@
         <input type="text" id="data" name="data" required><br><br>
         <label for="imagePath">Image Path:</label>
         <input type="text" id="imagePath" name="imagePath"><br><br>
-        <button type="button" onclick="generateQR()">Download QR Code</button>
+
+        <div class="moduleDrawerSelection">
+            <label for="moduleDrawer">Select which type of QR Code you want to create:</label><br>
+            <input type="hidden" id="moduleDrawer" name="moduleDrawer" value="1">
+            <div id="moduleDrawerOptions">
+                <img src="{{ url_for('static', filename='img/square.png') }}" alt="Square" class="moduleDrawerOption" data-value="1">
+                <img src="{{ url_for('static', filename='img/gapped_square.png') }}" alt="Gapped Square" class="moduleDrawerOption" data-value="2">
+                <img src="{{ url_for('static', filename='img/circle.png') }}" alt="Circle" class="moduleDrawerOption" data-value="3">
+                <img src="{{ url_for('static', filename='img/rounded.png') }}" alt="Rounded" class="moduleDrawerOption" data-value="4">
+                <img src="{{ url_for('static', filename='img/vertical.png') }}" alt="Vertical Bars" class="moduleDrawerOption" data-value="5">
+                <img src="{{ url_for('static', filename='img/horizontal.png') }}" alt="Horizontal Bars" class="moduleDrawerOption" data-value="6">
+            </div>
+        </div>
+
+        <div id="qrContainer" class="qrcode-preview"></div>
+        <button type="button" onclick="showQR()">Show QR Code</button>
+        <button type="button" onclick="downloadQR()">Download QR Code</button>
         <p id="qrMessage"></p>
     </form>
 
-    <script>
-        function generateQR() {
-            const data = document.getElementById('data').value;
-            const imagePath = document.getElementById('imagePath').value;
-            const qrMessage = document.getElementById('qrMessage');
-
-            qrMessage.textContent = 'Generating QR Code...';
-
-            fetch('https://techwithtobi-23552367d09a.herokuapp.com/generate_qr_directly', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    data: data,
-                    image_path: imagePath
-                })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok.');
-                }
-                return response.blob();
-            })
-            .then(blob => {
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = 'qrcode.png';
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-                qrMessage.textContent = 'QR Code generated and downloaded!';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                qrMessage.textContent = 'An error occurred while generating the QR Code.';
-            });
-        }
-    </script>
+    <script src="{{ url_for('static', filename='js/generateQR.js') }}"></script>
 </body>
 </html>

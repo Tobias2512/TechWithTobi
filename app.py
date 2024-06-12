@@ -4,7 +4,6 @@ from flask import Flask, request, jsonify, send_file, render_template
 from flask_cors import CORS
 from pytube import YouTube
 from io import BytesIO
-
 import re
 from python_apps.qr_encoder import generate_qr_code
 
@@ -32,12 +31,13 @@ def youtube_downloader():
 def generate_qr_directly():
     data = request.json.get('data')
     image_path = request.json.get('image_path')
+    module_drawer_index = request.json.get('module_drawer')
 
     if not data:
         return jsonify({'error': 'No data provided'}), 400
 
     try:
-        qr = generate_qr_code(data, image_path)
+        qr = generate_qr_code(data, image_path, module_drawer_index)
 
         # Save the QR code to a bytes buffer
         buffer = BytesIO()

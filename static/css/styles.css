@@ -1,10 +1,59 @@
-.box {
-    margin: 40px;
-    width: 400px;
-    height: 250px;
-}
 body {
-    margin: 0;
-    background: skyblue;
     text-align: center;
+    background: skyblue;
+    margin: 0;
+    padding-top: 50px; /* Because of 50px header*/
+}
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    background-color: darkblue;
+    color: white;
+    line-height: 50px;
+    z-index: 1000; /* Header should stay on top */
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+.box {
+    width: 60%;
+    height: 500px;
+    margin: 20px;
+    border: 1px solid darkblue;
+}
+.moduleDrawerSelection {
+    margin-bottom: 20px;
+}
+.moduleDrawerOption {
+    width: 100px;
+    height: auto;
+    cursor: pointer;
+    margin: 5px;
+}
+.moduleDrawerOption.selected {
+    border: 2px solid darkblue;
+}
+.qrcode-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 128px;
+    margin-bottom: 40px;
+    max-width: 150px;
+    max-height: 150px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.qrcode-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
 }

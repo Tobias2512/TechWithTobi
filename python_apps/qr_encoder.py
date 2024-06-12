@@ -61,8 +61,7 @@ def create_square(qr):
     return qr
 
 
-def generate_qr_code(data, image_path):
-    module_drawer_index = 4
+def generate_qr_code(data, image_path, module_drawer_index):
     qr = create_qr_code(data, module_drawer_index)
     if image_path:
         qr = create_square(qr)
