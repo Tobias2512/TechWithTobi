@@ -63,7 +63,6 @@ function downloadQR() {
     const qrMessage = document.getElementById('qrMessage');
 
     qrMessage.textContent = 'Generating QR Code...';
-    console.log('Image:', image);
 
     const formData = new FormData();
     formData.append('data', data);
