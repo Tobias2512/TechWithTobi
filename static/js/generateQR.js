@@ -20,7 +20,7 @@ function showQR() {
     const qrContainer = document.getElementById('qrContainer');
     const qrMessage = document.getElementById('qrMessage');
 
-    const formData = new FormData()
+    const formData = new FormData();
     formData.append('data', data);
     formData.append('module_drawer', moduleDrawer);
     if (image) {
@@ -52,7 +52,7 @@ function showQR() {
     })
     .catch(error => {
         console.error('Error:', error);
-        qrMessage.textContent = 'An error occurred while showing the QR Code.: ' +  error;
+        qrMessage.textContent = 'An error occurred while showing the QR Code.: ' + error;
     });
 }
 
@@ -63,8 +63,9 @@ function downloadQR() {
     const qrMessage = document.getElementById('qrMessage');
 
     qrMessage.textContent = 'Generating QR Code...';
+    console.log('Image:', image);
 
-    const formData = new FormData()
+    const formData = new FormData();
     formData.append('data', data);
     formData.append('module_drawer', moduleDrawer);
 

@@ -32,13 +32,13 @@ def youtube_downloader():
 @app.route('/generate_qr_directly', methods=['POST'])
 def generate_qr_directly():
     data = str(request.form.get('data'))
-    image = request.files['image']
+    image = request.files.get('image')
     module_drawer_index = int(request.form.get('module_drawer'))
 
     if not data:
         return jsonify({'error': 'No data provided'}), 400
 
-    image_path = ""
+    image_path = None
     if image:
         image_path = os.path.join(app.config['UPLOAD_FOLDER'], image.filename)
         image.save(image_path)
