@@ -22,8 +22,10 @@ function showQR() {
 
     const formData = new FormData()
     formData.append('data', data);
-    formData.append('image', image);
     formData.append('module_drawer', moduleDrawer);
+    if (image) {
+        formData.append('image', image);
+    }
 
     qrMessage.textContent = 'Trying to show QR Code...';
 

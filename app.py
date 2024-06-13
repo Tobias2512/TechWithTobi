@@ -37,11 +37,11 @@ def generate_qr_directly():
 
     if not data:
         return jsonify({'error': 'No data provided'}), 400
-    if not image:
-        return jsonify({'error': 'No selected image'}), 400
 
-    image_path = os.path.join(app.config['UPLOAD_FOLDER'], image.filename)
-    image.save(image_path)
+    image_path = ""
+    if image:
+        image_path = os.path.join(app.config['UPLOAD_FOLDER'], image.filename)
+        image.save(image_path)
     try:
         qr = generate_qr_code(data, image_path, module_drawer_index)
 
