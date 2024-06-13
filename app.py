@@ -9,7 +9,9 @@ from python_apps.qr_encoder import generate_qr_code
 
 
 app = Flask(__name__)
-CORS(app)  # ,resources={r"/*": {"origins": "http://127.0.0.1:5000"}})
+app.config['UPLOAD_FOLDER'] = 'static/uploads/'
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+CORS(app)
 
 
 @app.route('/')
@@ -29,13 +31,17 @@ def youtube_downloader():
 
 @app.route('/generate_qr_directly', methods=['POST'])
 def generate_qr_directly():
-    data = request.json.get('data')
-    image_path = request.json.get('image_path')
-    module_drawer_index: int = request.json.get('module_drawer')
+    data = str(request.form.get('data'))
+    image = request.files['image']
+    module_drawer_index = int(request.form.get('module_drawer'))
 
     if not data:
         return jsonify({'error': 'No data provided'}), 400
+    if not image:
+        return jsonify({'error': 'No selected image'}), 400
 
+    image_path = os.path.join(app.config['UPLOAD_FOLDER'], image.filename)
+    image.save(image_path)
     try:
         qr = generate_qr_code(data, image_path, module_drawer_index)
 

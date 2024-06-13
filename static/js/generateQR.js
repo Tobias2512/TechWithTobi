@@ -15,24 +15,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function showQR() {
     const data = document.getElementById('data').value;
-    const imagePath = document.getElementById('imagePath').value;
+    const image = document.getElementById('image').files[0];
     const moduleDrawer = document.getElementById('moduleDrawer').value;
-    const moduleDrawerIndex = parseInt(moduleDrawer)
     const qrContainer = document.getElementById('qrContainer');
     const qrMessage = document.getElementById('qrMessage');
+
+    const formData = new FormData()
+    formData.append('data', data);
+    formData.append('image', image);
+    formData.append('module_drawer', moduleDrawer);
 
     qrMessage.textContent = 'Trying to show QR Code...';
 
     fetch('https://techwithtobi-23552367d09a.herokuapp.com/generate_qr_directly', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            data: data,
-            image_path: imagePath,
-            module_drawer: moduleDrawerIndex
-        })
+        body: formData
     })
     .then(response => {
         if (!response.ok) {
@@ -53,28 +50,26 @@ function showQR() {
     })
     .catch(error => {
         console.error('Error:', error);
-        qrMessage.textContent = 'An error occurred while showing the QR Code.';
+        qrMessage.textContent = 'An error occurred while showing the QR Code.: ' +  error;
     });
 }
 
 function downloadQR() {
     const data = document.getElementById('data').value;
-    const imagePath = document.getElementById('imagePath').value;
+    const image = document.getElementById('image').files[0];
+    const moduleDrawer = document.getElementById('moduleDrawer').value;
     const qrMessage = document.getElementById('qrMessage');
-    const moduleDrawerIndex = document.getElementById('moduleDrawer').value;
 
     qrMessage.textContent = 'Generating QR Code...';
 
+    const formData = new FormData()
+    formData.append('data', data);
+    formData.append('image', image);
+    formData.append('module_drawer', moduleDrawer);
+
     fetch('https://techwithtobi-23552367d09a.herokuapp.com/generate_qr_directly', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            data: data,
-            image_path: imagePath,
-            module_drawer: moduleDrawerIndex
-        })
+        body: formData
     })
     .then(response => {
         if (!response.ok) {

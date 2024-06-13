@@ -16,11 +16,11 @@
     </div>
     <div class="container">
         <h1>QR Code Generator</h1>
-        <form id="qrForm">
+        <form id="qrForm" enctype="multipart/form-data">
             <label for="data">Data:</label>
             <input type="text" id="data" name="data" required><br><br>
-            <label for="imagePath">Image Path:</label>
-            <input type="text" id="imagePath" name="imagePath"><br><br>
+            <label for="image">Upload Image:</label>
+            <input type="file" id="image" name="image" accept="image/*"><br><br>
 
             <div class="moduleDrawerSelection">
                 <label for="moduleDrawer">Select which type of QR Code you want to create:</label><br>
@@ -42,5 +42,6 @@
         </form>
     </div>
     <script src="{{ url_for('static', filename='js/generateQR.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/uploadFile.js') }}"></script>
 </body>
 </html>
