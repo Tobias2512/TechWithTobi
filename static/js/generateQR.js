@@ -66,8 +66,11 @@ function downloadQR() {
 
     const formData = new FormData()
     formData.append('data', data);
-    formData.append('image', image);
     formData.append('module_drawer', moduleDrawer);
+
+    if (image) {
+        formData.append('image', image)
+    }
 
     fetch('https://techwithtobi-23552367d09a.herokuapp.com/generate_qr_directly', {
         method: 'POST',
